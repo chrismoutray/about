@@ -1,0 +1,74 @@
+body,
+h1,
+h2,
+h2 a,
+h2 a:visited,
+h3,
+h4,
+h5,
+h6,
+p,
+select,
+textarea {
+	color: #3e3e3e;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+    font-weight: 400;
+}
+
+::-moz-selection {
+	background-color: #ed702B;
+	color: #fff;
+}
+
+::selection {
+	background-color: #ed702B;
+	color: #fff;
+}
+
+.post-header h1 {
+    color: #ed702b;
+}
+
+.posts .post-link {
+    color: #ed702b;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a.site-title:hover {
+    
+}
+
+a.page-link:hover  {
+    color: #ed702b;
+    
+}
+
+.post-content a:link , 
+.post-content a:active {
+    color: #ed702b;
+    font-weight: 700;
+}
+
+.post-content a:visited  {
+    color: #ed702b;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+}
+
+.post-content a:hover {
+    color: #3e3e3e;
+}
