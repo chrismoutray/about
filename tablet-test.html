@@ -1,95 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title></title>
-<style>
-</style>
-<script>
-var access = new function() {
-    this.ip ='localhost';
-    //this.ip = '192.168.1.139';
-    //this.api_base = 'http://'+this.ip+':8080/v2';
-	this.api_base = 'http://'+this.ip+':8080/';
+    <head>
+        <title>LED Test</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    this.token = '';
-}
-
-window.onload = function() {
-    var xhr = new XMLHttpRequest(),
-        data = {
-            grant_type: 'password',
-            username: 'admin',
-            password: ''
-        },
-        data_string = '';
-    for (var key in data) {
-        data_string += '&'+key+(data[key] ?'='+data[key] :'');
-    }
-    //xhr.open('POST', access.api_base+'/oauth2/token', true);
-	xhr.open('POST', access.api_base+'/', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                access.token = JSON.parse(this.responseText).access_token;
+        <style type="text/css">
+            .button {
+            width:100px;
+            margin:30px auto;
+            padding:10px;
+            text-align:center;
+            border:1px solid #202020;
             }
-            else {
-                alert('some errors');
+            #nfc{
+            padding:10px;
+            text-align:center;
             }
-        }
-    }
-    xhr.send();
+        </style>
+        <script type="text/javascript">
+         function show(message){
+             document.getElementById("nfc").innerHTML=
+                 "NFC Message："+message;
+         }
 
-    var btns = document.getElementsByTagName('input');
-    for (var i=btns.length-1; 0<=i; i--) {
-        var btn = btns[i];
-        if (!btn.hasAttribute('hex')) {
-            continue;
-        }
+         function toast(){
+              window.nfc_test.toast("toast");
+         }
+    </script>
+    </head>
 
-        var hex = btn.getAttribute('hex');
-        (function(btn, hex) {
-            btn.onclick = function() {
-                changeLedColor(hex);
-            };
-        }) (btn, hex);
-    }
-};
+    <body>
+        <div id="onGreen" class="button" onClick="window.ledcontrol.onGreen();">Green ON</div>
+        <div id="offGreen" class="button" onClick="window.ledcontrol.offGreen();">Green OFF</div>
+        <div id="onRed" class="button" onClick="window.ledcontrol.onRed();">Red ON</div>
+        <div id="offRed" class="button" onClick="window.ledcontrol.offRed();">Red OFF</div>
+        <p id="nfc">NFC information will be displayed here</p>
+    </body>
 
-function changeLedColor(hex) {
-    var xhr = new XMLHttpRequest(),
-        data = {
-            id: 0,
-            name: 'frame',
-            brightness: 1.0,
-            color: hex
-        },
-        data_string = '';
-    for (var key in data) {
-        data_string += '&'+key+(data[key] ?'='+data[key] :'');
-    }
-    //xhr.open('POST', access.api_base+'/hardware/light?access_token='+access.token, true);
-	
-	//xhr.open('POST', access.api_base+'/hardware/light?led=test' + hex, true);
-	console.info(hex);
-	var h = hex.replace("#","");
-    xhr.open('POST', access.api_base+'/light?led=' + h, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status != 200) {
-                alert('some errors');
-            }
-        }
-    }
-    xhr.send();
-}
-</script>
-</head>
-<body>
-    <input type='button' hex='#ff0000' value='red' />
-    <input type='button' hex='#00ff00' value='green' />
-    <input type='button' hex='#ffff00' value='orange' />
-    <input type='button' hex='#000000' value='off' />
-</body>
 </html>
